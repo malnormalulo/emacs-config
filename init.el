@@ -1,6 +1,11 @@
+;; TODO replace hard references to ~/.emacs.d with variable user-emacs-directory
+
 ;; Meta-config
 (setq custom-file "~/.emacs.d/custom.el")
 (load "~/.emacs.d/custom.el")
+(let ((local "~/.emacs.d/local.el"))
+  (if (file-exists-p local)
+      (load local)))
 
 ;; Startup
 (setq inhibit-startup-screen t)
@@ -10,14 +15,13 @@
 ;; Backups
 (setq
  backup-by-copying t
- backup-directory-alist
- '(("." . "~/.emacs.d/backups"))
+ backup-directory-alist '(("." . "~/.emacs.d/backups"))
  delete-old-versions t
  kept-new-versions 6
  kept-old-versions 2
- version-control t)
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+ version-control t
+ auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+ create-lockfiles nil)
 (savehist-mode 1)
 
 ;; File settings
@@ -25,7 +29,7 @@
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
 ;; Global behavior
-(global-set-key (kbd "M-<left>") 
+(global-set-key (kbd "M-<left>")
                 (lambda ()
                   (interactive)
                   (other-window -1)))
