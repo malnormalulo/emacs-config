@@ -36,8 +36,12 @@
 ;; Whitespace
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
-(global-whitespace-mode)
-(setq whitespace-style '(face trailing tabs empty tab-mark))
+(global-whitespace-mode 1)
+(setq whitespace-style '(face trailing tabs spaces empty tab-mark space-mark))
+(set-face-background 'whitespace-space nil)
+(set-face-foreground 'whitespace-space "dim gray")
+(set-face-background 'whitespace-tab nil)
+(set-face-foreground 'whitespace-tab "dim gray")
 
 ;; Text editing
 (delete-selection-mode t)
