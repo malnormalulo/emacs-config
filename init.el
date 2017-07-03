@@ -1,8 +1,6 @@
 ;; TODO replace hard references to ~/.emacs.d with variable user-emacs-directory
 
-;; Meta-config
-(setq custom-file "~/.emacs.d/custom.el")
-(load "~/.emacs.d/custom.el")
+;; External config
 (let ((local "~/.emacs.d/local.el"))
   (if (file-exists-p local)
       (load local)))
@@ -66,7 +64,6 @@
  'nxml-mode-hook
  (lambda () (setq-local indent-tabs-mode t)))
 
-;; UI-specific settings
-(if (display-graphic-p)
-    (load "~/.emacs.d/init-gui.el")
-  (load "~/.emacs.d/init-terminal.el"))
+;; UI
+(tool-bar-mode -1)
+(load-theme 'wombat)
