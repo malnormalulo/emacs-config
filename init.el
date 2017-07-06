@@ -37,7 +37,7 @@
 (setq default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 (global-whitespace-mode 1)
-(setq whitespace-style '(face trailing tabs spaces empty tab-mark space-mark))
+(setq whitespace-style '(face tabs spaces empty tab-mark space-mark))
 (set-face-background 'whitespace-space nil)
 (set-face-foreground 'whitespace-space "dim gray")
 (set-face-background 'whitespace-tab nil)
@@ -64,10 +64,22 @@
       js-switch-indent-offset 2)
 
 ;; XML
-(add-hook
- 'nxml-mode-hook
- (lambda () (setq-local indent-tabs-mode t)))
+(mapc
+ (lambda (f) (add-hook 'nxml-mode-hook f))
+ (list
+  (lambda () (setq-local indent-tabs-mode t))
+  'linum-mode))
+;; (defmacro add-hooks (hook &rest fns)
+;;   `(mapc (lambda (f) (add-hook (quote ,hook) f))
+;;          ,fns))
+;; (add-hooks nxml-mode-hook
+;;            (lambda () (setq-local indent-tabs-mode t))
+;;            'linum-mode)
 
 ;; UI
 (tool-bar-mode -1)
 (load-theme 'wombat)
+
+;; Common code configs
+(mapc (lambda (h) (add-hook h 'linum-mode))
+      '(java-mode-hook))
